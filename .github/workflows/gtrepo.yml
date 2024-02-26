@@ -21,15 +21,7 @@ jobs:
           output1: ${{ steps.step4.outputs.test }}
           output2: ${{ steps.step4.outputs.test2 }}
           
-        steps:
-          - name: Using tag name from ref name "$GITHUB_REF_NAME"
-            if: github.event.inputs.tag-name == ''
-            run: echo "TAG_NAME=$GITHUB_REF_NAME" >> $GITHUB_ENV
-
-          - name: Using tag name from input param "${{ github.event.inputs.tag-name}}"
-            if: github.event.inputs.tag-name != ''
-            run: echo "TAG_NAME=${{ github.event.inputs.tag-name}}" >> $GITHUB_ENV  
-        
+        steps:      
           - name: Git checkout
             id: step1
             uses: actions/checkout@v4
@@ -97,6 +89,13 @@ jobs:
               
         
         steps:
+          - name: Using tag name from ref name
+            if: github.event.inputs.tag-name == ''
+            run: echo "TAG_NAME=$GITHUB_REF_NAME" >> $GITHUB_ENV
+
+          - name: Using tag name from input param
+            if: github.event.inputs.tag-name != ''
+            run: echo "TAG_NAME=${{ github.event.inputs.tag-name}}" >> $GITHUB_ENV  
   
           - name: Git checkout
             uses: actions/checkout@v4
@@ -304,6 +303,7 @@ jobs:
               
           - name: Upload Release
             uses: ncipollo/release-action@v1
+            if: env.TAG_NAME != ''
             with:
                 artifacts: 'ocrdzip_out/*.zip'
                 artifactContentType: application/zip
