@@ -319,6 +319,7 @@ jobs:
                   </dd>
                   </dl>
                   </dl>
+                tag: ${{ github.event.inputs.release-name }}
                 token: ${{ secrets.GITHUB_TOKEN }}
                 
           - name: Commit README
