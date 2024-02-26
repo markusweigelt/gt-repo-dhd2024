@@ -7,7 +7,9 @@ on:
       
       
   workflow_dispatch:
-
+      inputs:
+        release-name:
+          description: Name of the release
 
 
 jobs:
@@ -300,11 +302,11 @@ jobs:
             with:
                 artifacts: 'ocrdzip_out/*.zip'
                 artifactContentType: application/zip
-                name: Release ${{ github.run_number }}_${{ github.ref_name }}
+                name: Release ${{ github.run_number }}_${{ github.event.inputs.release-name }}
                 body: |
                   <dl>
                   <dt>Version:</dt> 
-                  <dd>${{ github.ref_name }}</dd>
+                  <dd>${{ github.event.inputs.release-name }}</dd>
                   <dt>Info:</dt>
                   <dd>
                   To make use of Ground Truth, please download the provided zip files.<br/>
