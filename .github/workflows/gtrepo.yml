@@ -22,11 +22,11 @@ jobs:
           output2: ${{ steps.step4.outputs.test2 }}
           
         steps:
-          - name: Using tag name from ref name
+          - name: Using tag name from ref name "$GITHUB_REF_NAME"
             if: github.event.inputs.tag-name == ''
             run: echo "TAG_NAME=$GITHUB_REF_NAME" >> $GITHUB_ENV
 
-          - name: Using tag name from input param
+          - name: Using tag name from input param "${{ github.event.inputs.tag-name}}"
             if: github.event.inputs.tag-name != ''
             run: echo "TAG_NAME=${{ github.event.inputs.tag-name}}" >> $GITHUB_ENV  
         
