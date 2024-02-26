@@ -307,11 +307,11 @@ jobs:
             with:
                 artifacts: 'ocrdzip_out/*.zip'
                 artifactContentType: application/zip
-                name: Release ${{ github.run_number }}_${{ github.event.inputs.release-name }}
+                name: Release ${{ github.run_number }}_${{ env.TAG_NAME }}
                 body: |
                   <dl>
                   <dt>Version:</dt> 
-                  <dd>${{ github.event.inputs.release-name }}</dd>
+                  <dd>${{ env.TAG_NAME }}</dd>
                   <dt>Info:</dt>
                   <dd>
                   To make use of Ground Truth, please download the provided zip files.<br/>
